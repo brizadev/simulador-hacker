@@ -1,0 +1,47 @@
+body {
+    background-color: black;
+    color: limegreen;
+    font-family: monospace;
+    padding: 20px;
+    overflow: hidden;
+  }
+  
+  #logo {
+    color: limegreen;
+    margin-bottom: 20px;
+    white-space: pre;
+  }
+  
+  .menu-option {
+    padding: 5px 10px;
+    margin: 2px 0;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  
+  .menu-option.selected {
+    background-color: limegreen;
+    color: black;
+    border-left: 2px solid #000;
+  }
+  
+  .terminal-output {
+    white-space: pre-wrap;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .popup {
+    position: fixed;
+    background: #111;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 8px;
+    font-size: 11px;
+    z-index: 1000;
+    width: 200px;
+    box-shadow: 0 0 10px #0f0;
+    pointer-events: none;
+  }
+  
