@@ -1,4 +1,4 @@
-const menuOptions = ["WIFI", "INSTAGRAM", "GOOGLE", "BUSCA SEGA"];
+const menuOptions = ["WIFI", "INSTAGRAM", "GOOGLE", "BUSCA SEGA", "APPLE"];
 let selectedIndex = 0;
 
 const fakeWiFis = [
@@ -8,6 +8,7 @@ const fakeWiFis = [
 document.addEventListener("keydown", handleKeyPress);
 updateMenuHighlight();
 
+// Manipula as teclas pressionadas
 function handleKeyPress(e) {
   if (e.key === "ArrowDown") {
     selectedIndex = (selectedIndex + 1) % menuOptions.length;
@@ -20,21 +21,25 @@ function handleKeyPress(e) {
   }
 }
 
+// Atualiza destaque no menu
 function updateMenuHighlight() {
   document.querySelectorAll(".menu-option").forEach((el, idx) => {
     el.classList.toggle("selected", idx === selectedIndex);
   });
 }
 
+// Executa a opção selecionada
 function runSelectedOption(option) {
   clearOutput();
   simulateHacking(option);
 }
 
+// Limpa a saída
 function clearOutput() {
   document.getElementById("output").textContent = "";
 }
 
+// Simula o comportamento de cada opção
 function simulateHacking(option) {
   let output = document.getElementById("output");
 
@@ -64,7 +69,6 @@ function simulateHacking(option) {
     const user = prompt("Digite o nome de usuário do GOOGLE:") || "anonymous";
     appendOutput(`Usuario: ${user}`);
     printWithDelay(output, `Conectando ao GOOGLE como ${user}...\n`, () => {
-      // Abrir 3 janelas simulando terminal
       const terminals = [];
 
       for (let i = 0; i < 3; i++) {
@@ -89,13 +93,11 @@ function simulateHacking(option) {
         }
       }
 
-      // Fechar janelas e redirecionar após 5 segundos
       setTimeout(() => {
         terminals.forEach(w => {
           if (w && !w.closed) w.close();
         });
-
-        window.location.href = "https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3Dsite%2Bhacker%26sca_esv%3Da7528baf20b27cbb%26sxsrf%3DAHTn8zoP5CbaSZls-qVraHc-afCzK1FhzA%253A1744805486558%26ei%3Dbp7_Z-DuIYOQ5OUPnfDioAM%26ved%3D0ahUKEwjg3en5wtyMAxUDCLkGHR24GDQQ4dUDCBE%26uact%3D5%26oq%3Dsite%2Bhacker%26gs_lp%3DEgxnd3Mtd2l6LXNlcnAiC3NpdGUgaGFja2VyMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMggQABiABBjLAUiKJ1DkDljzJHACeACQAQCYAbwBoAG7DqoBBDAuMTK4AQPIAQD4AQGYAg2gAqoOwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgINEC4YgAQYQxjUAhiKBcICFhAuGIAEGLEDGNEDGEMYgwEYxwEYigXCAggQLhiABBixA8ICEBAAGIAEGLEDGEMYgwEYigXCAhEQLhiABBixAxjRAxiDARjHAcICChAAGIAEGEMYigXCAgUQLhiABMICCxAAGIAEGLEDGIMBwgIOEC4YgAQYxwEYjgUYrwHCAgoQABiABBgUGIcCwgIIEAAYgAQYsQPCAh0QLhiABBjHARiOBRivARiXBRjcBBjeBBjgBNgBAcICBxAAGIAEGAqYAwCIBgGQBgi6BgYIARABGBSSBwYyLjEwLjGgB-ZZsgcGMC4xMC4xuAeXDg%26sclient%3Dgws-wiz-serp&ec=GAlAAQ&hl=pt-BR&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1574117385%3A1744805744117859";
+        window.location.href = "https://www.youtube.com/watch?v=qL9Hkc4xjs8&list=PLoWWB6PTe6TA-kj_h5DGobBrGlDdyAuTm";
       }, 5000);
     });
 
@@ -103,9 +105,40 @@ function simulateHacking(option) {
     simulateHackSequence(() => {
       appendOutput("Parabéns, você acabou de hackear a geladeira da sua vó! 😎");
     });
+
+  } else if (option === "APPLE") {
+    appendOutput("Acessando loja da Apple...");
+
+    // Abre a loja oficial em nova aba
+    window.open("https://www.apple.com/br/shop/buy-iphone/iphone-16-pro/tela-de-6,9-polegadas-256gb-tit%C3%A2nio-deserto", "_blank");
+
+    // Simula a alteração e abre o arquivo local
+    setTimeout(() => {
+      appendOutput("Injetando exploit na página...");
+      createPopup("Preço alterado com sucesso! 🎯");
+
+      const localFilePath = "apple.com.br.html";
+
+      fetch(localFilePath)
+        .then(response => {
+          if (!response.ok) throw new Error("Arquivo não encontrado.");
+          return response.text();
+        })
+        .then(html => {
+          const newWindow = window.open("", "_blank");
+          newWindow.document.write(html);
+        })
+        .catch(err => {
+          appendOutput("Erro ao abrir a página local da Apple.");
+          createPopup("Arquivo apple.com.br.html não encontrado!");
+          console.error(err);
+        });
+
+    }, 3000);
   }
 }
 
+// Função que imprime texto com delay
 function printWithDelay(element, text, callback) {
   let i = 0;
   let interval = setInterval(() => {
@@ -117,11 +150,13 @@ function printWithDelay(element, text, callback) {
   }, 50);
 }
 
+// Adiciona texto à saída
 function appendOutput(text) {
   const out = document.getElementById("output");
   out.textContent += text + "\n";
 }
 
+// Cria popups falsos na tela
 function createPopup(content) {
   const popup = document.createElement("div");
   popup.className = "popup";
@@ -134,6 +169,7 @@ function createPopup(content) {
   setTimeout(() => popup.remove(), 4000);
 }
 
+// Simula sequência de "hack"
 function simulateHackSequence(callback) {
   const lines = [
     "Acessando servidores...",
@@ -155,6 +191,7 @@ function simulateHackSequence(callback) {
   });
 }
 
+// Gera senha falsa
 function generatePassword() {
   return Math.random().toString(36).slice(-10);
 }
